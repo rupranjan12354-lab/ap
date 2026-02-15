@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>Morning Form App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- App install -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff9800">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f2f2f2;
+}
+.app{
+  max-width:400px;
+  margin:auto;
+  background:white;
+  min-height:100vh;
+  padding:20px;
+  text-align:center;
+}
+.logo{
+  width:100px;
+  margin:20px auto;
+}
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  font-size:16px;
+}
+textarea{height:80px;}
+button{
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  background:#ff9800;
+  color:white;
+  border:none;
+  font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+  <img src="logo.png" class="logo">
+  <h2>🌞 Morning Form</h2>
+
+  <form id="form">
+    <input type="text" id="name" placeholder="आपका नाम" required>
+    <input type="date" id="date" required>
+
+    <select id="mood">
+      <option>😊 खुश</option>
+      <option>😐 सामान्य</option>
+      <option>😔 उदास</option>
+    </select>
+
+    <textarea id="goal" placeholder="आज का लक्ष्य"></textarea>
+
+    <button>Save</button>
+  </form>
+
+  <p id="msg"></p>
+</div>
+
+<script>
+document.getElementById("form").addEventListener("submit",function(e){
+  e.preventDefault();
+
+  const data={
+    name:name.value,
+    date:date.value,
+    mood:mood.value,
+    goal:goal.value
+  };
+
+  localStorage.setItem("morningData",JSON.stringify(data));
+  document.getElementById("msg").innerText="✔ Data Saved";
+  this.reset();
+});
+
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>
